@@ -38,18 +38,18 @@ function renderError(data) {
 }
 
 function renderDefinitions(arr, findedItem) {
-  const elDefDiv = document.createElement("div");
   if (arr.length !== 0) {
+    const elDefDiv = document.createElement("div");
     const elTitle = document.createElement("h4");
     elTitle.innerHTML = `${findedItem}:`;
     elDefDiv.appendChild(elTitle);
+    arr.forEach((data) => {
+      const elDefP = document.createElement("p");
+      elDefP.innerHTML = data;
+      elDefDiv.appendChild(elDefP);
+    });
+    outputWrapper.appendChild(elDefDiv);
   }
-  arr.forEach((data) => {
-    const elDefP = document.createElement("p");
-    elDefP.innerHTML = data;
-    elDefDiv.appendChild(elDefP);
-  });
-  outputWrapper.appendChild(elDefDiv);
 }
 
 function clearWrapper() {
