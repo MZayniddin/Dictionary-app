@@ -25,8 +25,8 @@ formEl.addEventListener("submit", (e) => {
       renderDefinitions(defArr, "Definitions");
       const expleArr = item.meanings[0].definitions.findExample();
       renderDefinitions(expleArr, "Examples");
-      renderAudio([item.phonetics[0]?.audio]);
     });
+    renderAudio(data[0].phonetics);
   }
 });
 
@@ -46,17 +46,26 @@ function renderDefinitions(arr, findedItem) {
 }
 
 function renderAudio(arr) {
-  arr.forEach((audio) => {
-    if (audio) {
-      const audioEl = document.createElement("div");
-      audioEl.innerHTML = `
-      <audio controls>
-        <source src="${audio}" type="audio/mp3">
-      </audio>
-    `;
-      outputWrapper.appendChild(audioEl);
+  let audioArr = [];
+  arr.forEach((data) => {
+    if (data?.audio) {
+      audioArr.push(data.audio);
     }
   });
+  audioArr.forEach((audio) => {
+    const audioEl = document.createElement("div");
+    audioEl.className = 'audio';
+    audioEl.innerHTML = `
+    <button class="btn-play"><audio src="${audio}"></audio></button>
+    <span class="mp-text">Listen the pronunciation</span>
+    `
+    outputWrapper.appendChild(audioEl);
+  });
+  outputWrapper.addEventListener('click', (e) => {
+    if(e.target.classList.contains('btn-play')){
+      e.target.children[0].play();
+    }
+  })
 }
 
 function renderError(data) {
