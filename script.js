@@ -1,9 +1,9 @@
 const formEl = document.querySelector(".form");
 const inputText = document.querySelector(".input-text");
-const BASE_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/";
-
 const outputWord = document.querySelector(".word");
 const outputWrapper = document.querySelector(".wrapper");
+
+const BASE_URL = "https://api.dictionaryapi.dev/api/v2/entries/en/";
 
 formEl.addEventListener("submit", (e) => {
   e.preventDefault();
