@@ -21,21 +21,14 @@ formEl.addEventListener("submit", (e) => {
   function render(data) {
     data.forEach((item) => {
       outputWord.innerHTML = `${item.word}${item.findPhonetic()}`;
-      let defArr = item.meanings[0].definitions.findDifinition();
+      const defArr = item.meanings[0].definitions.findDifinition();
       renderDefinitions(defArr, "Definitions");
-      let expleArr = item.meanings[0].definitions.findExample();
+      const expleArr = item.meanings[0].definitions.findExample();
       renderDefinitions(expleArr, "Examples");
+      renderAudio([item.phonetics[0]?.audio]);
     });
   }
 });
-
-function renderError(data) {
-  outputWord.innerHTML = data.title;
-  const errMsg = document.createElement("div");
-  errMsg.className = "error-msg";
-  errMsg.innerHTML = `<p>${data.message}<br>${data.resolution}</p>`;
-  outputWrapper.appendChild(errMsg);
-}
 
 function renderDefinitions(arr, findedItem) {
   if (arr.length !== 0) {
@@ -50,6 +43,28 @@ function renderDefinitions(arr, findedItem) {
     });
     outputWrapper.appendChild(elDefDiv);
   }
+}
+
+function renderAudio(arr) {
+  arr.forEach((audio) => {
+    if (audio) {
+      const audioEl = document.createElement("div");
+      audioEl.innerHTML = `
+      <audio controls>
+        <source src="${audio}" type="audio/mp3">
+      </audio>
+    `;
+      outputWrapper.appendChild(audioEl);
+    }
+  });
+}
+
+function renderError(data) {
+  outputWord.innerHTML = data.title;
+  const errMsg = document.createElement("div");
+  errMsg.className = "error-msg";
+  errMsg.innerHTML = `<p>${data.message}<br>${data.resolution}</p>`;
+  outputWrapper.appendChild(errMsg);
 }
 
 function clearWrapper() {
