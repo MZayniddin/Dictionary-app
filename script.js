@@ -19,8 +19,8 @@ formEl.addEventListener("submit", (e) => {
   })();
 
   function render(data) {
+    outputWord.innerHTML = `${data[0].word}${data[0].findPhonetic()}`;
     data.forEach((item) => {
-      outputWord.innerHTML = `${item.word}${item.findPhonetic()}`;
       const defArr = item.meanings[0].definitions.findDifinition();
       renderDefinitions(defArr, "Definitions");
       const expleArr = item.meanings[0].definitions.findExample();
